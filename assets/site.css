@@ -1,0 +1,70 @@
+:root{
+  --bg:#0b0f14; --panel:rgba(14,19,26,.72); --line:rgba(255,255,255,.10);
+  --ink:#eef2f6; --muted:#9aa6b2; --accent:#f5b82e; --accent-ink:#1a1200;
+  --radius:16px; --gutter:clamp(16px,4vw,40px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:8px;z-index:20}
+.skip:focus{left:8px}
+
+.top{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px var(--gutter);background:linear-gradient(var(--bg),rgba(11,15,20,0));}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;letter-spacing:.01em}
+.top nav{display:flex;align-items:center;gap:20px}
+.top nav a:not(.btn){color:var(--muted);text-decoration:none;font-size:15px}
+.top nav a:not(.btn):hover{color:var(--ink)}
+@media (max-width:560px){.top nav a:not(.btn){display:none}}
+
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:650;text-decoration:none;
+  padding:12px 20px;border-radius:999px;transition:transform .15s ease,filter .15s ease}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn-small{padding:8px 14px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+
+.stage{position:fixed;inset:0;z-index:0}
+.stage canvas{width:100%;height:100%;display:block}
+.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.stage.no-webgl .poster{opacity:.55}
+.loader{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px;transition:opacity .4s}
+.loader .bar{width:120px;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.loader i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.loader.done{opacity:0;pointer-events:none}
+
+main{position:relative;z-index:1}
+.step{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  max-width:520px;padding:96px var(--gutter);margin-left:max(var(--gutter),6vw)}
+.step:not(.hero){background:none}
+.step > *{position:relative}
+.step:not(.hero) > :is(h2,p,ul){background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.step:not(.hero) > h2{margin:0;padding:22px 24px 6px;border-radius:var(--radius) var(--radius) 0 0;border:1px solid var(--line);border-bottom:0}
+.step:not(.hero) > p:not(.eyebrow),.step:not(.hero) > ul{margin:0;padding:6px 24px 22px;border-radius:0 0 var(--radius) var(--radius);border:1px solid var(--line);border-top:0}
+.step:not(.hero) > .eyebrow{background:none;margin:0 0 10px}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px;max-width:12ch}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.02em}
+.lead{font-size:clamp(18px,2.2vw,21px);color:#d3dbe3;max-width:34ch;margin:0 0 28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.scroll-hint{margin-top:48px;color:var(--muted);font-size:14px}
+.points{list-style:none}
+.points li{padding:8px 0;border-top:1px solid var(--line)}
+.points li:first-child{border-top:0}
+.cta{text-align:left}
+.cta .actions{margin-top:14px}
+
+.foot{position:relative;z-index:1;padding:40px var(--gutter) 56px;border-top:1px solid var(--line);background:var(--bg);color:var(--muted);font-size:14px}
+.foot p{max-width:760px;margin:0 0 8px}
+
+/* Narrow screens: text panels sit low, the robot stays visible above them. */
+@media (max-width:760px){
+  .step{margin-left:0;max-width:none;justify-content:flex-end;padding-bottom:12vh}
+  .hero{padding-bottom:8vh}
+  .hero > *{text-shadow:0 2px 18px var(--bg),0 0 2px var(--bg)}
+  h1{max-width:none}
+  .scroll-hint{margin-top:24px}
+}
